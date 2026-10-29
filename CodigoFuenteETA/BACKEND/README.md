@@ -111,3 +111,4 @@ npm run start
 - La mayoría de los endpoints requieren autenticación mediante token Bearer en el header `Authorization`.
 - Los endpoints filtran datos por empresa según el `empresaId` contenido en el token JWT.
 - Todos los errores retornan formato: `{ error: "mensaje", glosa: "detalle del error" }`.
+Prueba
