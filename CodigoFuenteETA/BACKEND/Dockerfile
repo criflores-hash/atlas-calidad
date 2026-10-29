@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:24-alpine
 
 WORKDIR /app
 
@@ -17,8 +17,8 @@ COPY uploads/ ./uploads/
 RUN mkdir -p uploads/contracts
 
 # Exponer puerto
-EXPOSE 3000
-
+EXPOSE 4000
+USER node
 # Comando para iniciar la aplicación
 CMD ["node", "src/app.js"]
 
