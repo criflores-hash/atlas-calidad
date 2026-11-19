@@ -1,35 +1,31 @@
-# Dependabot revisa cada semana si hay versiones nuevas o parches
-# de seguridad y abre un Pull Request por cada actualización.
-version: 2
+﻿version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/BACKEND"
+    directory: "/CodigoFuenteETA/BACKEND"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
 
   - package-ecosystem: "npm"
-    directory: "/FRONTEND"
+    directory: "/CodigoFuenteETA/FRONTEND"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
 
   - package-ecosystem: "npm"
-    directory: "/pruebas-e2e"
-    schedule:
-      interval: "monthly"
-
-  - package-ecosystem: "docker"
-    directory: "/BACKEND"
+    directory: "/CodigoFuenteETA/e2e"
     schedule:
       interval: "weekly"
 
   - package-ecosystem: "docker"
-    directory: "/FRONTEND"
+    directory: "/CodigoFuenteETA/BACKEND"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/CodigoFuenteETA/FRONTEND"
     schedule:
       interval: "weekly"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
