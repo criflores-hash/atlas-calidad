@@ -14,7 +14,7 @@
     "@emotion/styled": "^11.14.1",
     "@fdograph/rut-utilities": "^1.4.0",
     "@mui/icons-material": "^7.3.4",
-    "@mui/material": "^7.3.4",
+    "@mui/material": "^9.5.0",
     "@mui/x-charts": "^8.18.0",
     "axios": "^1.13.1",
     "formik": "^2.4.9",
