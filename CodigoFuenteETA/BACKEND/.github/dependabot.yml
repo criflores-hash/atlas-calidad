@@ -1,0 +1,9 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/CodigoFuenteETA/BACKEND"
+    schedule:
+      interval: "weekly"
+
+
+

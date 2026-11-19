@@ -1,24 +1,23 @@
-FROM node:24-alpine
-
+# Imagen base con soporte vigente (Node 20)
+FROM node:20-alpine
+ 
 WORKDIR /app
-
-# Copiar archivos de dependencias
+ 
+# 1) Primero solo los archivos de dependencias para aprovechar la caché de Docker
 COPY package*.json ./
-
-# Instalar dependencias
-RUN npm ci --only=production
-
-# Copiar código de la aplicación
+RUN npm ci --omit=dev && npm cache clean --force
+ 
+# 2) Luego el código de la aplicación y la estructura de base de datos
 COPY src/ ./src/
 COPY sql/ ./sql/
-COPY uploads/ ./uploads/
-
-# Crear directorio para uploads si no existe
-RUN mkdir -p uploads/contracts
-
-# Exponer puerto
-EXPOSE 4000
+ 
+# 3) Carpeta de documentos con permisos para el usuario sin privilegios
+RUN mkdir -p uploads/contracts && chown -R node:node /app/uploads
+ 
+# 4) No ejecutar como administrador (root) por seguridad
 USER node
-# Comando para iniciar la aplicación
+ 
+# 5) El puerto real en que escucha la API
+EXPOSE 4000
+ 
 CMD ["node", "src/app.js"]
-
