@@ -1,4 +1,4 @@
-const express = require("express");
+﻿const express = require("express");
 const { pool } = require("../db");
 const jwt = require("jsonwebtoken");
 const validate = require("../middleware/validate");
@@ -52,7 +52,7 @@ router.post("/", validate(clienteSchema), async (req, res) => {
     if (!authUser || !authUser.empresaId) {
       return res.status(401).json({
         error: "No autorizado",
-        glosa: "Token inválido o sin empresa asociada",
+        glosa: "Token invÃ¡lido o sin empresa asociada",
       });
     }
 
@@ -101,7 +101,7 @@ router.post("/", validate(clienteSchema), async (req, res) => {
       "INSERT INTO auditoria (usuario_id, accion) VALUES ($1, $2)",
       [
         authUser?.nombreUsuario || null,
-        `CLIENTES_CREAR: creó cliente ${nombre}`,
+        `CLIENTES_CREAR: creÃ³ cliente ${nombre}`,
       ]
     );
 
@@ -122,7 +122,7 @@ router.get("/", async (req, res) => {
     if (!authUser || !authUser.empresaId) {
       return res.status(401).json({
         error: "No autorizado",
-        glosa: "Token inválido o sin empresa asociada",
+        glosa: "Token invÃ¡lido o sin empresa asociada",
       });
     }
 
@@ -151,7 +151,7 @@ router.get("/search", async (req, res) => {
     if (!authUser || !authUser.empresaId) {
       return res.status(401).json({
         error: "No autorizado",
-        glosa: "Token inválido o sin empresa asociada",
+        glosa: "Token invÃ¡lido o sin empresa asociada",
       });
     }
 
@@ -163,7 +163,7 @@ router.get("/search", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      error: "Error en búsqueda",
+      error: "Error en bÃºsqueda",
       glosa: err.message || err.toString(),
     });
   }
@@ -176,7 +176,7 @@ router.get("/:id", async (req, res) => {
     if (!authUser || !authUser.empresaId) {
       return res.status(401).json({
         error: "No autorizado",
-        glosa: "Token inválido o sin empresa asociada",
+        glosa: "Token invÃ¡lido o sin empresa asociada",
       });
     }
 
@@ -233,7 +233,7 @@ router.put("/:id", validate(clienteSchema), async (req, res) => {
     if (!authUser || !authUser.empresaId) {
       return res.status(401).json({
         error: "No autorizado",
-        glosa: "Token inválido o sin empresa asociada",
+        glosa: "Token invÃ¡lido o sin empresa asociada",
       });
     }
 
@@ -283,7 +283,7 @@ router.put("/:id", validate(clienteSchema), async (req, res) => {
       "INSERT INTO auditoria (usuario_id, accion) VALUES ($1, $2)",
       [
         authUser?.nombreUsuario || null,
-        `CLIENTES_ACTUALIZAR: actualizó cliente ID ${req.params.id}`,
+        `CLIENTES_ACTUALIZAR: actualizÃ³ cliente ID ${req.params.id}`,
       ]
     );
 
@@ -304,7 +304,15 @@ router.delete("/:id", async (req, res) => {
     if (!authUser || !authUser.empresaId) {
       return res.status(401).json({
         error: "No autorizado",
-        glosa: "Token inválido o sin empresa asociada",
+        glosa: "Token invÃ¡lido o sin empresa asociada",
+      });
+    }
+
+    // RB-4 / RB-5: solo un administrador puede eliminar clientes
+    if (authUser.rolNombre !== "administrador") {
+      return res.status(403).json({
+        error: "Acción no permitida",
+        glosa: "Solo un administrador puede eliminar clientes",
       });
     }
 
@@ -320,7 +328,7 @@ router.delete("/:id", async (req, res) => {
       "INSERT INTO auditoria (usuario_id, accion) VALUES ($1, $2)",
       [
         authUser?.nombreUsuario || null,
-        `CLIENTES_ELIMINAR: eliminó cliente ID ${req.params.id}`,
+        `CLIENTES_ELIMINAR: eliminÃ³ cliente ID ${req.params.id}`,
       ]
     );
 
